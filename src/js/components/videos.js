@@ -40,12 +40,12 @@ export class VideoWrapper {
 		this.id = id;
 		this.currentVideo = 0;
 		this.pageWidth = document.getElementById("header").clientWidth;
-		this.vidWidth = this.calcVidWidth(); 
+		this.vidWidth = document.querySelector(".l-header__inner").clientWidth; 
 		this.vidHeight = this.vidWidth/(16/9); 
 		this.horizontalPosition = 0;
 		this.videos = [
-			new Video("video1",this.vidWidth,"a_al_1_1_KP-24424807_h264_mezzanine"),
-			new Video("video2",this.vidWidth,"c_al_2_1_h264_mezzanine")
+			new Video("video1",this.vidWidth,"NEWAus2_1_h264_mezzanine"),
+			new Video("video2",this.vidWidth,"NEWAus3_1_h264_mezzanine")
 		];
 		this.width = this.videos.length * this.vidWidth;
 	};	
@@ -67,6 +67,7 @@ export class VideoWrapper {
 
 		this.playButton.style.top = (this.vidHeight/2 - 35) + "px";
 		this.playButton.style.left = (this.vidWidth/2 - 35) + "px"; 
+		this.dot = document.getElementById("dot");
 
 		document.getElementById("explainer-teaser").onclick = function() {
 			if(self.videos[0].playing === true) {
@@ -75,6 +76,12 @@ export class VideoWrapper {
 				self.playAllVideos();  
 			}
 		}
+
+		document.getElementById("dots").addEventListener("click", function(e) {
+			var event = e || window.event;
+			event.stopPropagation();
+			self.toggleVideos();
+		});
 	}
 
 	nextVideo() {
@@ -82,6 +89,7 @@ export class VideoWrapper {
 			this.currentVideo++;
 			var inner = this.innerEl;	
 			inner.style.webkitTransform = `translate(-${this.currentVideo * this.vidWidth}px)`;
+			this.dot.style.webkitTransform = `translate(${this.currentVideo * 16}px)`;
 		}
 	}	
 
@@ -90,25 +98,38 @@ export class VideoWrapper {
 			this.currentVideo = this.currentVideo - 1;
 			var inner = this.innerEl;	
 			inner.style.webkitTransform = `translate(-${this.currentVideo * this.vidWidth}px)`;
+			this.dot.style.webkitTransform = `translate(${this.currentVideo * 16}px)`;
 		}
 	}
 
 	pauseAllVideos() {
 		this.videos.map(function(video) {
 			if(video.playing === true) {
-				video.pauseVideo();
+				video.pauseVideo(); 
 			}
 		});
 		document.getElementById("video-wrapper").className = "paused";
 	}
 
-	playAllVideos() {
+	playAllVideos() { 
+		let self = this;
 		this.videos.map(function(video) {
+			if(self.explainerExpanded === true) {
+				self.explainers.toggleExplainerVisibility(true);
+			}
 			if(video.playing === false) {
 				video.playVideo();
 			}
 		});
 		document.getElementById("video-wrapper").className = "";
+	}
+
+	toggleVideos() {
+		if(this.currentVideo === 0) {
+			this.nextVideo();
+		} else {
+			this.previousVideo();
+		}
 	}
 
 	setWidths() {
@@ -126,7 +147,7 @@ export class VideoWrapper {
 		} else if(this.pageWidth >= 980) {
 			return 980;
 		} else {
-			return "auto";
+			return 400;
 		}
 	}
 

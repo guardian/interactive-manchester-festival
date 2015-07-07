@@ -1,10 +1,20 @@
-<div id="{{wrapperID}}" class="video-wrapper" style="height: {{vidHeight}}px;">
+<div id="loading-overlay">
+	Loading...
+</div>
+<div class="int-main">
+	<div id="{{wrapperID}}" class="video-wrapper" style="height: {{vidHeight}}px;">
 	<div id="{{wrapperID}}--inner" class="video-wrapper--inner" style="width: {{width}}px;">
-	{{#videos}}
-		<video autoplay id="{{id}}" style="width: {{vidWidth}}px">
-			<source src="{{sources.mp4}}" type="video/mp4" >
-			<source src="{{sources.webm}}" type="video/mp4">
-		</video>
-	{{/videos}}
+		{{#videos}}
+			<video preload="auto" id="{{id}}" style="width: {{vidWidth}}px">
+				<source src="{{sources.mp4}}" type="video/mp4" >
+				<source src="{{sources.webm}}" type="video/mp4">
+			</video>
+		{{/videos}}
+	</div>
+	<div id="explainer-teaser" style="height: {{vidHeight}}px;"></div>
+	<div class="play-button">
+		<span></span>
 	</div>
 </div>
+<div id="explainer-area"></div>
+</div> 

@@ -1,24 +1,43 @@
-export function viewportWidth() {
-	var vpw;
- 	var webkit = (!(window.webkitConvertPointFromNodeToPage == null));
-	
-	// Webkit:
-	if ( webkit ) {
-		var vpwtest = document.createElement( "div" );
-		// Sets test div to width 100%, !important overrides any other misc. box model styles that may be set in the CSS
-		vpwtest.style.cssText = "width:100% !important; margin:0 !important; padding:0 !important; border:none !important;";
-		document.documentElement.insertBefore( vpwtest, document.documentElement.firstChild );
-		vpw = vpwtest.offsetWidth;
-		document.documentElement.removeChild( vpwtest );
-	}
-	// IE 6-8:
-	else if ( window.innerWidth === undefined ) { 
-		vpw = document.documentElement.clientWidth; 
-	}
-	// Other:
-	else{
-		vpw =  window.innerWidth;
-	}
- 
-	return (vpw);
+var requestAnimFrame = (function(){return window.requestAnimationFrame||window.webkitRequestAnimationFrame||window.mozRequestAnimationFrame||function(callback){window.setTimeout(callback,1000/60);};})();
+
+var easeInOutQuad = function (t, b, c, d) {
+    t /= d/2;
+    if (t < 1) return c/2*t*t + b;
+    t--;
+    return -c/2 * (t*(t-2) - 1) + b;
 };
+
+export function animScrollTo(element, to, duration, callback) {
+    var start = element.scrollTop,
+    change = to - start,
+    animationStart = +new Date();
+    var animating = true;
+    var lastpos = null;
+
+    var animateScroll = function() {
+        if (!animating) {
+            return;
+        }
+        requestAnimFrame(animateScroll);
+        var now = +new Date();
+        var val = Math.floor(easeInOutQuad(now - animationStart, start, change, duration));
+        if (lastpos) {
+            if (lastpos === element.scrollTop) {
+                lastpos = val;
+                element.scrollTop = val;
+            } else {
+                animating = false;
+            }
+        } else {
+            lastpos = val;
+            element.scrollTop = val;
+        }
+        if (now > animationStart + duration) {
+            element.scrollTop = to;
+            animating = false;
+            if (callback) { callback(); }
+        }
+    };
+    requestAnimFrame(animateScroll);
+};
+

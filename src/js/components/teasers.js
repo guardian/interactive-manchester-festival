@@ -12,8 +12,6 @@ export class TeaserSet {
 	};	
 
 	updateCheck() {
-		// console.log(this.arrowLeftText);
-		// console.log(this.arrowRightText);
 		let self = this;
 		this.teasers.map(function(teaser) {
 			let currentTime = self.videoWrapper.videos[0].el.currentTime;
@@ -34,14 +32,12 @@ export class TeaserSet {
 		let self = this;
 
 		this.arrowRight.addEventListener("click", function(e) {
-			alert("right");
 			var event = e || window.event;
 			event.stopPropagation();
 			self.videoWrapper.previousVideo();
 		});
 
 		this.arrowLeft.addEventListener("click", function(e) {
-			alert("left");
 			var event = e || window.event;
 			event.stopPropagation();
 			self.videoWrapper.nextVideo();

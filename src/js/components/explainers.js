@@ -32,15 +32,7 @@ export class ExplainerSet {
 	switchExplainer(nextExplainer) {
 		this.currentExplainer = nextExplainer;
 		this.teaserInnerEl.className = ""; 
-		// this.el.innerHTML = mustache.render(explainerHTML, {explainer: this.currentExplainer});
 		this.teaserInnerEl.innerHTML = mustache.render(teaserHTML, {explainer: this.currentExplainer}); 
-
-		// let self = this;
-		// document.querySelector("#back-to-vid").onclick = function() {
-		// 	let offset = document.getElementById("video-wrapper").offsetTop;
-		// 	self.videoWrapper.playAllVideos(); 
-		// 	animScrollTo(document.body, offset+126, 1000);
-		// }
 	}
 
 	toggleExplainerVisibility(doNotPlay) {
@@ -67,9 +59,7 @@ export class ExplainerSet {
 			var event = e || window.event;
 			event.stopPropagation();
 			let offset = document.getElementById("explainer-area").offsetTop;
-			// self.videoWrapper.pauseAllVideos(); 
 			self.toggleExplainerVisibility();
-			// animScrollTo(document.body, offset+126, 1000);
 		});
 	}
 }

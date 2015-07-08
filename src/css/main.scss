@@ -69,7 +69,7 @@ figure.element-interactive {
 	width: 10000px;
 	overflow: hidden;
 	transform: translate(0); 
-	transition: transform 0.3s ease-in-out;
+	// transition: transform 0.3s ease-in-out;
 
 	video {
 		float: left;
@@ -283,7 +283,7 @@ button {
 		background-color: #fff;
 		height: 16px;
 		width: 16px;
-		transition: transform 0.15s ease-in-out;
+		transition: transform 0.05s ease-in-out;
 	}
 
 	&::after {

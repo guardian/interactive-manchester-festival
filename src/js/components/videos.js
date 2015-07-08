@@ -41,7 +41,7 @@ export class VideoWrapper {
 		this.currentVideo = 0;
 		this.pageWidth = document.getElementById("header").clientWidth;
 		this.vidWidth = document.querySelector(".l-header__inner").clientWidth; 
-		this.vidHeight = this.vidWidth/(16/9); 
+		this.vidHeight = this.vidWidth/(16/9);  
 		this.horizontalPosition = 0;
 		this.videos = [
 			new Video("video1",this.vidWidth,"NEWAus2_1_h264_mezzanine"),
@@ -155,7 +155,7 @@ export class VideoWrapper {
 		this.pauseAllVideos();
 	}
 
-	checkKey() {
+	checkKeyDown() {
 	    let e = e || window.event;
 	    if (e.keyCode == '38') {
 	    	e.preventDefault();
@@ -165,11 +165,17 @@ export class VideoWrapper {
 	    	e.preventDefault();
 	        this.pauseAllVideos();
 	    }
-	    else if (e.keyCode == '37') {
-	       	this.previousVideo(); 
-	    }
-	    else if (e.keyCode == '39') {
+	    else if (e.keyCode == '32') {
+			e.preventDefault();
 	    	this.nextVideo();
+	    }
+	}
+
+	checkKeyUp() {
+		let e = e || window.event;
+	    if (e.keyCode == '32') {
+	    	e.preventDefault();
+	    	this.previousVideo();
 	    }
 	}
 }

@@ -25,12 +25,15 @@ function app(el,data) {
 	var explainerSet = new ExplainerSet(el, videoWrapper, data.sheets.explainers, "explainer-area", "explainer-teaser", "explainer-teaser--inner");
 	var teaserSet = new TeaserSet(el, videoWrapper, data.sheets.teasers, "arrow-left--text", "arrow-right--text");
 
-	document.onkeydown = () => videoWrapper.checkKey();
+	document.onkeydown = () => videoWrapper.checkKeyDown();
+
+	document.onkeyup = () => videoWrapper.checkKeyUp();
 
 	videoWrapper.videos[0].el.ontimeupdate = function() {
 		explainerSet.updateCheck();
 		teaserSet.updateCheck();
 	}
+
 	videoWrapper.videos[0].el.onended = () => videoWrapper.hasEnded();
 
 	playVideos(videoWrapper);

@@ -40,7 +40,7 @@ export class VideoWrapper {
 		this.id = id;
 		this.currentVideo = 0;
 		this.pageWidth = document.getElementById("header").clientWidth;
-		this.vidWidth = document.querySelector(".l-header__inner").clientWidth; 
+		this.vidWidth = this.pageWidth; 
 		this.vidHeight = this.vidWidth/(16/9);  
 		this.horizontalPosition = 0;
 		this.videos = [

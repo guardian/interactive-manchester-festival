@@ -33,6 +33,10 @@ figure.element-interactive {
   display: block !important;
 }
 
+.top-banner-ad-container {
+	display: none !important;
+}
+
 #loading-overlay {
 	width: 100%;
 	height: 100%;
@@ -85,26 +89,25 @@ figure.element-interactive {
 	overflow: hidden;
 	background-color: #333333;
 
-	@include mq(tablet) { 
-		width: 740px;
-	}
+	// @include mq(tablet) { 
+	// 	width: 740px;
+	// }
 
-	@include mq(desktop) {
-		width: 980px;
-	}
+	// @include mq(desktop) {
+	// 	width: 980px;
+	// }
 
-	@include mq(leftCol) {
-		width: 1140px;
-	}
+	// @include mq(leftCol) {
+	// 	width: 1140px;
+	// }
 
-	@include mq(wide) {
-		width: 1300px;
-	}
+	// @include mq(wide) {
+	// 	width: 1300px;
+	// } 
 }
 
 
 #explainer-area {
-	min-height: 600px;
 	width: 100%;
 	color: #fff;
 	padding: 24px 20px;

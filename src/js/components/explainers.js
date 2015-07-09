@@ -40,12 +40,16 @@ export class ExplainerSet {
 			this.teaserEl.className = "";
 			this.videoWrapper.explainerExpanded = false;
 
+			this.videoWrapper.playButton.style.opacity = 1;
+
 			if(doNotPlay !== true) {
 				this.videoWrapper.playAllVideos();
 			}
 		} else {
 			this.teaserEl.className = "show-explainer";
 			this.videoWrapper.explainerExpanded = true;
+
+			this.videoWrapper.playButton.style.opacity = 0; 
 
 			if(doNotPlay !== true) {
 				this.videoWrapper.pauseAllVideos();
@@ -58,7 +62,6 @@ export class ExplainerSet {
 		document.querySelector("#explainer-teaser--inner").addEventListener("click", function(e) {
 			var event = e || window.event;
 			event.stopPropagation();
-			let offset = document.getElementById("explainer-area").offsetTop;
 			self.toggleExplainerVisibility();
 		});
 	}

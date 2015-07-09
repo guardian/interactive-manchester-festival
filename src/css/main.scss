@@ -29,9 +29,9 @@ figure.element-interactive {
 	}
 }
 
-.is-immersive .l-footer {
-  display: block !important;
-}
+// .is-immersive .l-footer {
+//   display: block !important;
+// }
 
 .top-banner-ad-container {
 	display: none !important;
@@ -53,6 +53,8 @@ figure.element-interactive {
 	// overflow-x: scroll; 
 	width: 100%;
 	background-color: #333;
+	position: relative;
+	margin: auto;
 	height: 500px;
 	// border-bottom: 3px solid $c-highlight;
 
@@ -87,7 +89,6 @@ figure.element-interactive {
 	width: 100%;
 	position: relative;
 	overflow: hidden;
-	background-color: #333333;
 
 	// @include mq(tablet) { 
 	// 	width: 740px;
@@ -139,7 +140,7 @@ figure.element-interactive {
 	}
 
 	button {
-		margin-top: 12px;
+		margin-top: 24px;
 	}
 }
 
@@ -157,34 +158,43 @@ figure.element-interactive {
 	#explainer-teaser--inner {
 		position: absolute;
 		color: #fff;
-		left: 0;
-		bottom: 0;
+		bottom: -150px;
 		width: 100%;
-		max-height: 48px;
+		height: 300px;
 		font-family: $egyptian;
-		overflow: hidden;
 		padding: 10px 20px;
-		transition: bottom 0.3s ease-in-out, max-height 0.3s ease-in-out, background-color 0.3s ease-in-out;
+		padding-right: 0;
+		transition: bottom 0.5s ease-in-out, background-color 0.3s ease-in-out;
 
-		background: -moz-linear-gradient(top,  rgba(0,0,0,0) 0%, rgba(0,0,0,0.65) 100%); /* FF3.6+ */
-		background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(0,0,0,0)), color-stop(100%,rgba(0,0,0,0.65))); /* Chrome,Safari4+ */
-		background: -webkit-linear-gradient(top,  rgba(0,0,0,0) 0%,rgba(0,0,0,0.65) 100%); /* Chrome10+,Safari5.1+ */
-		background: -o-linear-gradient(top,  rgba(0,0,0,0) 0%,rgba(0,0,0,0.65) 100%); /* Opera 11.10+ */
-		background: -ms-linear-gradient(top,  rgba(0,0,0,0) 0%,rgba(0,0,0,0.65) 100%); /* IE10+ */
-		background: linear-gradient(to bottom,  rgba(0,0,0,0) 0%,rgba(0,0,0,0.65) 100%); /* W3C */
-		filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00000000', endColorstr='#a6000000',GradientType=0 ); /* IE6-9 */
+		width: 500px;
+		right: calc(50% - 35px);
+		left: initial; 
 
+		// background: -moz-linear-gradient(top,  rgba(0,0,0,0) 0%, rgba(0,0,0,0.65) 100%); /* FF3.6+ */
+		// background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(0,0,0,0)), color-stop(100%,rgba(0,0,0,0.65))); /* Chrome,Safari4+ */
+		// background: -webkit-linear-gradient(top,  rgba(0,0,0,0) 0%,rgba(0,0,0,0.65) 100%); /* Chrome10+,Safari5.1+ */
+		// background: -o-linear-gradient(top,  rgba(0,0,0,0) 0%,rgba(0,0,0,0.65) 100%); /* Opera 11.10+ */
+		// background: -ms-linear-gradient(top,  rgba(0,0,0,0) 0%,rgba(0,0,0,0.65) 100%); /* IE10+ */
+		// background: linear-gradient(to bottom,  rgba(0,0,0,0) 0%,rgba(0,0,0,0.65) 100%); /* W3C */
+		// filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00000000', endColorstr='#a6000000',GradientType=0 ); /* IE6-9 */
 
 		* {
 			max-width: 620px;
 		}
 
 		.paused & {
-			bottom: -48px !important;
+			bottom: -300px !important;
 		}
 
 		&.hidden {
-			bottom: -48px !important;
+			bottom: -300px !important;
+		}
+
+		&:hover {
+			.int-button-up {
+				fill: #333;
+				background-color: $c-highlight;
+			}
 		}
 
 		// &:hover {
@@ -196,22 +206,42 @@ figure.element-interactive {
 
 	&.show-explainer {
 		#explainer-teaser--inner {
-			max-height: 300px !important;
-			bottom: 0 !important;
+			bottom: 24% !important;
 		}
-		h2 {
+		h1,h2,hr,p {
 			opacity: 1;
+		}
+
+		h1 {
+			transition-delay: 1s;
+		}
+
+		h2 {
+			transition-delay: 0.5s;
+		}
+
+		p {
+			transition-delay: 1.5s;
+		}
+
+		.explainer-tease {
+			opacity: 0;
 		}
 	}
 
 	h1 {
-		font-size: 36px;
+		font-size: 30px;
 		line-height: 32px;
 		opacity: 1;
-		font-weight: 300;
+		font-weight: 700;
 		vertical-align: bottom;
 		display: inline;
-		color: $c-highlight;
+		color: #fff;
+		padding-bottom: 6px;
+		opacity: 0;
+		transition: opacity 0.5s ease-in-out;
+		transition-delay: 0s;
+
 	}
 
 	hr {
@@ -222,15 +252,42 @@ figure.element-interactive {
 		margin-bottom: 1px;
 		padding-bottom: 4px;
 		border-top: 1px solid $c-highlight;
+		opacity: 0;
 	}
 
 	h2 {
-		font-size: 22px;
-		line-height: 24px;
+		font-size: 30px;
+		line-height: 32px;
 		margin-top: 5px;
+		color: rgba(255,255,255,0.9);
 		font-weight: 300; 
 		opacity: 0;
-		transition: opacity 0.3s ease-in-out;
+		transition: opacity 0.5s ease-in-out;
+		transition-delay: 0s
+
+	}
+
+	p {
+		opacity: 0;
+		font-size: 16px;
+		line-height: 22px;
+		margin-top: 24px;
+		transition: opacity 0.5s ease-in-out;
+		transition-delay: 0s; 
+		padding-right: 70px;
+
+	}
+
+	.explainer-tease {
+		position: absolute;
+		right: 80px;
+		padding-top: 15px;
+		padding-right: 10px;
+		font-family: $egyptian;
+		font-size: 30px;
+		opacity: 1;
+		font-weight: 300;
+		transition: opacity 0.5s ease-in-out;
 	}
 
 	button {
@@ -269,45 +326,48 @@ button {
 
 #dots {
 	position: absolute;
-	right: 24px;
-	bottom: 14px;
+	right: 20px;
+	top: 24px;
 	z-index: 11;
-	width: 32px;
-	height: 18px;
-	border: 1px solid #fff;
+	width: 106px;
+	height: 25px;
+	background-color: rgba(255,255,255,0.3);
 	border-radius: 100px;
 	opacity: 0.9;
+	font-family: $text-sans;
+	font-size: 10px;
+	padding-top: 6px;
+	padding-left: 28px;
+	color: #fff; 
+	display: none;
+
+	&.add-transition {
+		display: block;
+		transition: top 0.3s ease-in-out, right 0.3s ease-in-out; 
+	}
+
+	span {
+		transition: opacity 0.3s ease-in-out;
+	}
 
 	#dot {
 		position: absolute;
-		left: 0;
-		bottom: 0;
+		left: 4px;
+		top: 3px;
 		border-radius: 100px;
-		background-color: #fff;
-		height: 16px;
-		width: 16px;
-		transition: transform 0.05s ease-in-out;
+		background-color: #fb0;
+		height: 19px;
+		width: 19px; 
+		transition: transform 0.15s ease-in-out;
 	}
+}
 
-	&::after {
-		content: '2';
-		font-family: $text-sans;
-		font-weight: 700;
-		font-size: 12px;
-		color: #fff;
-		position: absolute;
-		left: 38px;
-	}
-
-	&::before {
-		content: '1';
-		font-family: $text-sans;
-		font-weight: 700;
-		font-size: 12px;
-		color: #fff;
-		position: absolute;
-		left: -13px;
-	}
+.button-explainer {
+	font-size: 12px;
+	line-height: 14px;
+  	color: #fff;
+  	float: right;
+  	max-width: 150px;
 }
 
 .arrow {
@@ -317,6 +377,7 @@ button {
 	fill: #fff;
 	color: #fff;
 	z-index: 15;
+	display: none;
 
 	svg {
 		height: 20px;
@@ -361,23 +422,74 @@ button {
 }
 
 .int-button-up {
-	border: 1px solid $c-highlight;
-	width: 20px;
-	fill: $c-highlight;
+	width: 70px;
+	fill: #fff;
 	display: inline-block;
-	height: 20px;
-	padding: 5px;
-	box-sizing: initial !important;
+	height: 70px;
+	padding: 10px;
+	background-color: rgba(51, 51, 51, 0.8);
 	border-radius: 100px;
 	margin-left: 10px;
+	text-align: center;
+	float: right;
 
 	svg {
-		width: 20px;
+		width: 44px;
+		height: 44px;
+		margin-top: 4px; 
+		transition: transform 0.3s ease-in-out;
 
 		.show-explainer & {
-			transform: rotate(180deg);
-			margin-top: 4px; 
+			transform: rotate(45deg);
 		}
+	}
+}
+
+#intro-area {
+	width: 100%;
+	margin: auto;  font-size: 16px;
+  	line-height: 22px;
+	margin-top: 15%;
+	transition: opacity 0.3s ease-in-out;
+
+	@include mq(tablet) { 
+		width: 740px;
+	}
+
+	@include mq(desktop) {
+		width: 980px;
+	}
+
+	@include mq(leftCol) {
+		width: 1140px;
+	}
+
+	@include mq(wide) {
+		width: 1300px;
+	}
+
+	h1 {
+		display: block;
+		font-size: 54px;
+		line-height: 60px;
+		opacity: 1;
+		font-weight: 300; 
+	}
+
+	h2 {
+		color: #fff;
+		font-size: 16px;
+		line-height: 22px;
+		opacity: 1; 
+		max-width: 440px;
+	}
+
+	.line {
+		width: 150%;
+		height: 1px;
+		display: block;
+		background-color: rgba(255,255,255,0.5); 
+		margin-bottom: 24px;
 	}
 }
 
@@ -390,6 +502,7 @@ button {
 	position: absolute;
 	z-index: 9;
 	display: none;
+	// opacity: 0;
 
 	.paused & {
 		display: block;

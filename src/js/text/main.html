@@ -2,7 +2,7 @@
 	Loading...
 </div>
 <div class="int-main">
-	<div id="{{wrapperID}}" class="video-wrapper" style="height: {{vidHeight}}px;">
+	<div id="{{wrapperID}}" class="video-wrapper" style="height: {{vidHeight}}px; width: {{vidWidth}}px;">
 	<div id="{{wrapperID}}--inner" class="video-wrapper--inner" style="width: {{width}}px;">
 		{{#videos}}
 			<video preload="auto" id="{{id}}" style="width: {{vidWidth}}px">
@@ -21,7 +21,14 @@
 	</div>
 	<div id="explainer-teaser" style="height: {{vidHeight}}px;">
 		<div id="dots">
+			<span id="int-label">Hold space bar</span>
 			<div id="dot"></div>
+		</div>
+		<div id="intro-area">
+			<h1 id="int-title">{{meta.headline}}</h1>
+			<div class="line"></div>
+			<div class="button-explainer">{{meta.buttonexplain}}</div>
+			<h2>{{meta.subheading}}</h2>
 		</div>
 		<div id="explainer-teaser--inner" class="hidden"></div>
 	</div>
@@ -29,5 +36,5 @@
 		<span></span>
 	</div>
 </div>
-<div id="explainer-area"></div>
+<!-- <div id="explainer-area"></div> -->
 </div> 

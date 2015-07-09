@@ -19,7 +19,12 @@ function init(el, context, config, mediator) {
 }
 
 function app(el,data) {
-	var videoWrapper = new VideoWrapper(el, "video-wrapper", data.sheets.meta);
+	var videos = [
+		new Video("video1","NEWAus2_1_h264_mezzanine"),
+		new Video("video2","NEWAus3_1_h264_mezzanine")
+	];
+
+	var videoWrapper = new VideoWrapper(el, "video-wrapper", data.sheets.meta, videos); 
 	videoWrapper.render();
 
 	var explainerSet = new ExplainerSet(el, videoWrapper, data.sheets.explainers, "explainer-area", "explainer-teaser", "explainer-teaser--inner");

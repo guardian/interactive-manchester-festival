@@ -3,17 +3,16 @@ import mainHTML from '../text/main.html!text'
 import { viewportWidth, debounce } from '../components/helperFunctions'
 
 export class Video {
-	constructor(id, width, multimediaID) {
-		this.width = width;
-		this.height = this.width/(16/9);
+	constructor(id, multimediaID) {
 		this.id = id;
 		this.playing = false;
 		this.multimediaID = multimediaID;
 
 		this.sources = {
-			// *** SHORT TERM HACK AROUND THE PHP REDIRECT SCRIPT *** 
 			// mp4: "http://multimedia.guardianapis.com/interactivevideos/video.php?file=" + this.multimediaID + "&format=video/mp4&maxbitrate=1000",
 			// webm: "http://multimedia.guardianapis.com/interactivevideos/video.php?file=" + this.multimediaID + "&format=video/webm&maxbitrate=1000"
+
+			// *** SHORT TERM HACK AROUND THE PHP REDIRECT SCRIPT *** 
 			mp4: "http://cdn.theguardian.tv/interactive/2015/05/13/" + this.multimediaID + "_2M_H264.mp4",
 			webm: "http://cdn.theguardian.tv/interactive/2015/05/13/" + this.multimediaID + "_2M_vp8.webm"
 		}
@@ -37,16 +36,13 @@ export class Video {
 }
 
 export class VideoWrapper {
-	constructor(el,id,metaData) {
+	constructor(el,id,metaData,videos) {
 		this.el = el;
 		this.id = id;
 		this.currentVideo = 0;
 		this.calcDimensions();  
 		this.horizontalPosition = 0;
-		this.videos = [
-			new Video("video1",this.vidWidth,"NEWAus2_1_h264_mezzanine"),
-			new Video("video2",this.vidWidth,"NEWAus3_1_h264_mezzanine")
-		];
+		this.videos = videos;
 		this.metaData = metaData;
 		this.width = this.videos.length * this.vidWidth;
 	};	
@@ -177,6 +173,9 @@ export class VideoWrapper {
 		this.wrapperEl.style.height = this.vidHeight + "px";
 		this.innerEl.style.width = this.vidWidth*this.videos.length + "px";
 		this.teaserEl.style.height = this.vidHeight + "px"; 
+
+		this.playButton.style.top = (this.vidHeight/2 - 35) + "px";
+		this.playButton.style.left = (this.vidWidth/2 - 35) + "px"; 
 
 		if(this.hideIntro === true) {
 			let innerWidth = document.querySelector(".l-header__inner").clientWidth || this.pageWidth;

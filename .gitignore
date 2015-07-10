@@ -1,4 +1,5 @@
 tmp
+*.tmp
 node_modules
 jspm_packages
 bower_components

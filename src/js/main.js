@@ -8,7 +8,7 @@ import { TeaserSet } from './components/teasers'
 
 export function init(el, context, config, mediator) {
     reqwest({
-        url: 'http://interactive.guim.co.uk/spreadsheetdata/1H5ZvNP_oBxOjk-HAnWmHWwRJ1Sig6U1clMeryd8fPeg.json',
+        url: 'http://interactive.guim.co.uk/spreadsheetdata/1Jpie3XvZBI_dd-jNzz20jJ_R3WBAY9wEzLPE3nN8r0c.json',
         type: 'json',
         crossOrigin: true,
         success: function(resp) {

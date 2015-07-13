@@ -3,7 +3,7 @@
 </div>
 <div class="int-main">
     <div id="{{id}}" class="video-wrapper">
-        <div id="{{id}}--inner" class="video-wrapper--inner">
+        <div class="video-wrapper__videos">
             {{#videos}}
                 <video preload="auto">
                     <source src="{{sources.mp4}}" type="video/mp4" >
@@ -23,14 +23,16 @@
             <span id="int-label">Hold space bar</span>
             <div id="dot"></div>
         </div>
-        <div id="explainer-teaser">
-            <div id="intro-area">
-                <h1 id="int-title">{{meta.headline}}</h1>
-                <div class="line"></div>
-                <div class="button-explainer">{{meta.buttonexplain}}</div>
-                <h2>{{meta.subheading}}</h2>
+        <div class="video-wrapper__content">
+            <div id="explainer-teaser">
+                <div id="intro-area">
+                    <h1 id="int-title">{{meta.headline}}</h1>
+                    <div class="line"></div>
+                    <div class="button-explainer">{{meta.buttonexplain}}</div>
+                    <h2>{{meta.subheading}}</h2>
+                </div>
+                <div id="explainer-teaser--inner" class="hidden"></div>
             </div>
-            <div id="explainer-teaser--inner" class="hidden"></div>
         </div>
         <div class="play-button">
             <span></span>

@@ -22,13 +22,13 @@ export class Video {
         }
     }
 
-    pauseVideo() {
+    pause() {
         this.el.pause();
         this.playing = false;
         this.el.className = this.el.className + " faded";
     }
 
-    playVideo() {
+    play() {
         this.el.play();
         this.playing = true;
         this.el.className = "";
@@ -52,18 +52,20 @@ export class VideoWrapper {
 
         this.transformProperties = ['webkitTransform', 'mozTransform', 'msTransform', 'transform']
 
-        this.initEventBindings();
-        this.resetDimensions();
-    };
-
-    initEventBindings() {
         this.dot = $1("#dot");
         this.dots = $1("#dots");
-        this.innerEl = $1(`#${this.id}--inner`);
+        this.innerEl = $1(`.video-wrapper__videos`);
         this.wrapperEl = $1(`#${this.id}`);
         this.teaserEl = $1("#explainer-teaser");
         this.playButton = $1(".play-button");
         this.buttonLabel = $1("#int-label");
+        this.introAreaEl = $1("#intro-area")
+
+        this.resetDimensions();
+        this.initEventBindings();
+    };
+
+    initEventBindings() {
 
         $1("#explainer-teaser").addEventListener('click', e => {
             if(this.videos[0].playing === true) this.pauseAllVideos();
@@ -100,36 +102,33 @@ export class VideoWrapper {
     setStyleTransforms() {
         this.transformProperties.forEach(prop => {
             this.innerEl.style[prop] = `translate(-${this.currentVideo * this.vidWidth}px)`;
-            this.dot.style[prop] = `translate(${this.currentVideo * 80}px)`;
+            this.dot.style[prop] = `translate(${this.currentVideo * 108}px)`;
         })
     }
 
     pauseAllVideos() {
         this.videos.map(function(video) {
             if(video.playing === true) {
-                video.pauseVideo();
+                video.pause();
             }
         });
         $1("#video-wrapper").className = "paused";
     }
 
     playAllVideos() {
-        let self = this;
-        this.videos.map(function(video) {
-            if(self.explainerExpanded === true) {
-                self.explainers.toggleExplainerVisibility(true);
+        this.started = true;
+
+        this.videos.map( video => {
+            if(this.explainerExpanded === true) {
+                this.explainers.toggleExplainerVisibility(true);
             }
             if(video.playing === false) {
-                video.playVideo();
+                video.play();
             }
         });
 
-        if(this.hideIntro === true) {
-            $1("#intro-area").style.opacity = 0;
-            this.dots.removeAttribute("style");
-            this.hideIntro = false;
-        }
-
+        this.introAreaEl.style.opacity = 0;
+        this.dots.removeAttribute("style");
         $1("#video-wrapper").className = "";
     }
 
@@ -160,7 +159,12 @@ export class VideoWrapper {
         this.playButton.style.top = (this.vidHeight/2 - 35) + "px";
         this.playButton.style.left = (this.vidWidth/2 - 35) + "px";
 
-        this.dots.style.top = ($1("#int-title").offsetTop + 25) + "px";
+        if (this.started) this.dots.removeAttribute('style');
+        else {
+            this.dots.style.top = `${this.introAreaEl.offsetTop + 25}px`;
+            var contentPaddingSize = (this.vidWidth - this.introAreaEl.clientWidth) / 2;
+            this.dots.style.right = `${contentPaddingSize + 20}px`;
+        }
 
         this.videos.map(video => video.el.style.width = this.vidWidth + "px");
     }
@@ -190,23 +194,21 @@ export class VideoWrapper {
             this.previousVideo();
         }
     }
+
+    onCanplaythrough() {
+        bonzo($1("#loading-overlay")).remove();
+        // playing then pausing will enable the videos to
+        // continue buffering further before the user hits play
+        this.videos.forEach(v => { v.play(); v.pause(); })
+    }
 }
 
 export function playVideos(theWrapper) {
     var counter = 0;
 
     for (var i = 0; i < 2; i++) {
-        theWrapper.videos[i].el.addEventListener('canplaythrough', _ => { counter++; checkReady(); })
-    }
-
-    function checkReady() {
-        if(counter === 2) {
-            bonzo($1("#loading-overlay")).remove();
-            theWrapper.playAllVideos();
-            theWrapper.pauseAllVideos();
-            theWrapper.hideIntro = true;
-            // playing then pausing will enable the videos to continue buffering further before the user hits play
-            return;
-        }
+        theWrapper.videos[i].el.addEventListener('canplaythrough', _ => {
+            if (++counter === 2) theWrapper.onCanplaythrough();
+        })
     }
 }

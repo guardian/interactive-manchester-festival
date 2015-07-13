@@ -24,7 +24,7 @@ function app(el,data) {
         el: el,
         id: "video-wrapper",
         metaData: data.sheets.meta,
-        videoIds: ["2015/07/10/150710_FLEX_A_h264_mezzanine", "2015/05/13/NEWAus3_1_h264_mezzanine"]
+        videoIds: ["2015/07/10/150710_FLEX_A_h264_mezzanine", "2015/07/13/150713_FLEX_B_h264_mezzanine"]
     });
 
 

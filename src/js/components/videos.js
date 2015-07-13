@@ -63,6 +63,8 @@ export class VideoWrapper {
 
         this.resetDimensions();
         this.initEventBindings();
+
+        this.dots.className = 'add-transition'; // adding this here stops transition on load
     };
 
     initEventBindings() {

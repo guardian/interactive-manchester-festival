@@ -114,7 +114,7 @@ export class VideoWrapper {
                 video.pause();
             }
         });
-        $1("#video-wrapper").className = "paused";
+        this.wrapperEl.className = 'paused';
     }
 
     playAllVideos() {
@@ -131,7 +131,7 @@ export class VideoWrapper {
 
         this.introAreaEl.style.opacity = 0;
         this.dots.removeAttribute("style");
-        $1("#video-wrapper").className = "";
+        this.wrapperEl.className = "";
     }
 
     toggleVideos() {
@@ -199,6 +199,7 @@ export class VideoWrapper {
 
     onCanplaythrough() {
         bonzo($1("#loading-overlay")).remove();
+        this.wrapperEl.className = 'paused';
         // playing then pausing will enable the videos to
         // continue buffering further before the user hits play
         this.videos.forEach(v => { v.play(); v.pause(); })

@@ -30,10 +30,6 @@ figure.element-interactive {
 	}
 }
 
-// .is-immersive .l-footer {
-//   display: block !important;
-// }
-
 .top-banner-ad-container {
 	display: none !important;
 }
@@ -44,9 +40,20 @@ figure.element-interactive {
 	position: absolute;
 	top: 0;
 	left: 0;
-	background-color: #333;
 	z-index: 10;
-	color: #fff;
+	color: #d1d1d1;
+
+	span {
+		margin: auto;
+		width: 100%;
+		display: block;
+		text-align: center;
+		top: 0;
+		bottom: 0;
+		position: absolute;
+		height: 24px;
+		font-size: 24px;
+	}
 }
 
 #video-wrapper {

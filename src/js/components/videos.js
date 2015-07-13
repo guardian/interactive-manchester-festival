@@ -1,6 +1,6 @@
 import mustache from 'mustache'
 import mainHTML from '../text/main.html!text'
-import { $1, viewportWidth, debounce } from '../lib/helpers'
+import { $1, debounce } from '../lib/helpers'
 import bonzo from 'ded/bonzo'
 
 export class Video {
@@ -40,54 +40,30 @@ export class VideoWrapper {
         this.el = el;
         this.id = id;
         this.currentVideo = 0;
-        this.calcDimensions();
-        this.horizontalPosition = 0;
-        this.videoIds = videoIds;
-        this.metaData = metaData[0];
-        this.width = this.videoIds.length * this.vidWidth;
+        var headerEl = $1("#header");
+        this.headerHeight = headerEl ? headerEl.clientHeight : 0;
+        this.meta = metaData[0];
         this.videos = videoIds.map(id => new Video(id));
-        this.el.innerHTML = mustache.render(mainHTML, this);
-        var videoEls = Array.prototype.slice.call(this.el.querySelectorAll('video'))
 
-        videoEls.map((el, i) => this.videos[i].el = el)
+        this.el.innerHTML = mustache.render(mainHTML, this);
+
+        Array.prototype.slice.call(this.el.querySelectorAll('video'))
+            .map((el, i) => this.videos[i].el = el)
 
         this.transformProperties = ['webkitTransform', 'mozTransform', 'msTransform', 'transform']
 
-        this.afterRender();
+        this.initEventBindings();
+        this.resetDimensions();
     };
 
-    calcDimensions() {
-        let headerHeight = $1("#header").clientHeight;
-        this.pageWidth = $1("#header").clientWidth || viewportWidth();
-        this.ratio = this.pageWidth/(window.innerHeight - headerHeight);
-
-        if(this.ratio > 16/9) {
-            this.vidHeight = window.innerHeight - headerHeight;
-            this.vidWidth = this.vidHeight * (16/9);
-        } else {
-            this.vidWidth = this.pageWidth;
-            this.vidHeight = this.vidWidth / (16/9);
-        }
-    }
-
-    afterRender() {
-        var innerWidth = document.querySelector(".l-header__inner").clientWidth || this.pageWidth;
-
+    initEventBindings() {
         this.dot = $1("#dot");
         this.dots = $1("#dots");
-
         this.innerEl = $1(`#${this.id}--inner`);
         this.wrapperEl = $1(`#${this.id}`);
         this.teaserEl = $1("#explainer-teaser");
-
-        this.dots.style.top = ($1("#int-title").offsetTop + 25) + "px";
-        this.dots.style.right = ((this.wrapperEl.clientWidth - innerWidth)/2) + "px";
-        this.dots.className = "add-transition";
-
-        this.playButton = document.querySelector(".play-button");
+        this.playButton = $1(".play-button");
         this.buttonLabel = $1("#int-label");
-        this.playButton.style.top = (this.vidHeight/2 - 35) + "px";
-        this.playButton.style.left = (this.vidWidth/2 - 35) + "px";
 
         $1("#explainer-teaser").addEventListener('click', e => {
             if(this.videos[0].playing === true) this.pauseAllVideos();
@@ -99,14 +75,10 @@ export class VideoWrapper {
             this.toggleVideos();
         })
 
-        window.addEventListener('resize', debounce(this.resetWidths.bind(this),250))
-
-
+        window.addEventListener('resize', debounce(this.resetDimensions.bind(this),250))
         document.addEventListener('keydown', this.checkKeyDown.bind(this))
         document.addEventListener('keyup', this.checkKeyUp.bind(this))
-
         this.videos[0].el.addEventListener('ended', this.hasEnded.bind(this));
-
     }
 
     nextVideo() {
@@ -169,9 +141,16 @@ export class VideoWrapper {
         }
     }
 
-    resetWidths() {
-        this.calcDimensions();
-        var innerWidth = document.querySelector(".l-header__inner").clientWidth || this.pageWidth;
+    resetDimensions() {
+        this.ratio = window.innerWidth/(window.innerHeight - this.headerHeight);
+
+        if(this.ratio > 16/9) {
+            this.vidHeight = window.innerHeight - this.headerHeight;
+            this.vidWidth = this.vidHeight * (16/9);
+        } else {
+            this.vidWidth = window.innerWidth;
+            this.vidHeight = this.vidWidth / (16/9);
+        }
 
         this.wrapperEl.style.width = this.vidWidth + "px";
         this.wrapperEl.style.height = this.vidHeight + "px";
@@ -181,11 +160,7 @@ export class VideoWrapper {
         this.playButton.style.top = (this.vidHeight/2 - 35) + "px";
         this.playButton.style.left = (this.vidWidth/2 - 35) + "px";
 
-        if(this.hideIntro === true) {
-            let innerWidth = document.querySelector(".l-header__inner").clientWidth || this.pageWidth;
-            this.dots.style.top = ($1("#int-title").offsetTop + 25) + "px";
-            this.dots.style.right = ((this.wrapperEl.clientWidth - innerWidth)/2) + "px";
-        }
+        this.dots.style.top = ($1("#int-title").offsetTop + 25) + "px";
 
         this.videos.map(video => video.el.style.width = this.vidWidth + "px");
     }

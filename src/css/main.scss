@@ -51,7 +51,7 @@ figure.element-interactive {
 
 #video-wrapper {
 	overflow: hidden;
-	// overflow-x: scroll; 
+	// overflow-x: scroll;
 	width: 100%;
 	position: relative;
 	margin: auto;
@@ -69,12 +69,12 @@ figure.element-interactive {
 				}
 			}
 		}
-	} 
+	}
 }
 .video-wrapper--inner {
 	width: 10000px;
 	overflow: hidden;
-	transform: translate(0); 
+	transform: translate(0);
 	// transition: transform 0.3s ease-in-out;
 
 	video {
@@ -90,7 +90,7 @@ figure.element-interactive {
 	position: relative;
 	overflow: hidden;
 
-	// @include mq(tablet) { 
+	// @include mq(tablet) {
 	// 	width: 740px;
 	// }
 
@@ -104,7 +104,7 @@ figure.element-interactive {
 
 	// @include mq(wide) {
 	// 	width: 1300px;
-	// } 
+	// }
 }
 
 
@@ -128,7 +128,7 @@ figure.element-interactive {
 	h2 {
 		font-size: 24px;
 		line-height: 24px;
-		font-weight: 400; 
+		font-weight: 400;
 		font-family: $egyptian;
 		margin-top: 12px;
 		margin-bottom: 24px;
@@ -148,7 +148,7 @@ figure.element-interactive {
 	width: 100%;
 	height: 100%;
 	position: absolute;
-	top: 0; 
+	top: 0;
 	left: 0;
 	opacity: 1;
 	overflow: hidden;
@@ -168,7 +168,7 @@ figure.element-interactive {
 
 		width: 500px;
 		right: calc(50% - 35px);
-		left: initial; 
+		left: initial;
 
 		// background: -moz-linear-gradient(top,  rgba(0,0,0,0) 0%, rgba(0,0,0,0.65) 100%); /* FF3.6+ */
 		// background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(0,0,0,0)), color-stop(100%,rgba(0,0,0,0.65))); /* Chrome,Safari4+ */
@@ -260,7 +260,7 @@ figure.element-interactive {
 		line-height: 32px;
 		margin-top: 5px;
 		color: rgba(255,255,255,0.9);
-		font-weight: 300; 
+		font-weight: 300;
 		opacity: 0;
 		transition: opacity 0.5s ease-in-out;
 		transition-delay: 0s
@@ -273,7 +273,7 @@ figure.element-interactive {
 		line-height: 22px;
 		margin-top: 24px;
 		transition: opacity 0.5s ease-in-out;
-		transition-delay: 0s; 
+		transition-delay: 0s;
 		padding-right: 70px;
 
 	}
@@ -338,12 +338,12 @@ button {
 	font-size: 10px;
 	padding-top: 6px;
 	padding-left: 28px;
-	color: #fff; 
+	color: #fff;
 	display: none;
 
 	&.add-transition {
 		display: block;
-		transition: top 0.3s ease-in-out, right 0.3s ease-in-out; 
+		transition: top 0.3s ease-in-out, right 0.3s ease-in-out;
 	}
 
 	span {
@@ -357,7 +357,7 @@ button {
 		border-radius: 100px;
 		background-color: #fb0;
 		height: 19px;
-		width: 19px; 
+		width: 19px;
 		transition: transform 0.15s ease-in-out;
 	}
 }
@@ -436,7 +436,7 @@ button {
 	svg {
 		width: 44px;
 		height: 44px;
-		margin-top: 4px; 
+		margin-top: 4px;
 		transition: transform 0.3s ease-in-out;
 
 		.show-explainer & {
@@ -446,26 +446,26 @@ button {
 }
 
 #intro-area {
-	width: 100%;
+	padding: 0 20px;
 	margin: auto;  font-size: 16px;
   	line-height: 22px;
 	margin-top: 15%;
 	transition: opacity 0.3s ease-in-out;
 
-	@include mq(tablet) { 
-		width: 740px;
+	@include mq(tablet) {
+		max-width: 740px;
 	}
 
 	@include mq(desktop) {
-		width: 980px;
+		max-width: 980px;
 	}
 
 	@include mq(leftCol) {
-		width: 1140px;
+		max-width: 1140px;
 	}
 
 	@include mq(wide) {
-		width: 1300px;
+		max-width: 1300px;
 	}
 
 	h1 {
@@ -474,22 +474,21 @@ button {
 		line-height: 60px;
 		opacity: 1;
 		color: $c-highlight;
-		font-weight: 300; 
+		font-weight: 300;
 	}
 
 	h2 {
 		color: #fff;
 		font-size: 16px;
 		line-height: 22px;
-		opacity: 1; 
+		opacity: 1;
 		max-width: 440px;
 	}
 
 	.line {
-		width: 150%;
 		height: 1px;
 		display: block;
-		background-color: rgba(255,255,255,0.5); 
+		background-color: rgba(255,255,255,0.5);
 		margin-bottom: 24px;
 	}
 }

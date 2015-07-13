@@ -24,10 +24,8 @@ function app(el,data) {
         el: el,
         id: "video-wrapper",
         metaData: data.sheets.meta,
-        videoIds: ["2015/07/10/150710_FLEX_A_h264_mezzanine", "2015/07/13/150713_FLEX_B_h264_mezzanine"]
+        videoIds: ["2015/07/13/150713_02_FLEX_A_h264_mezzanine", "2015/07/13/150713_FLEX_B_h264_mezzanine"]
     });
-
-
 
     var explainerSet = new ExplainerSet(el, videoWrapper, data.sheets.explainers, "explainer-area", "explainer-teaser", "explainer-teaser--inner");
     var teaserSet = new TeaserSet(el, videoWrapper, data.sheets.teasers, "arrow-left--text", "arrow-right--text");

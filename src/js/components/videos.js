@@ -58,7 +58,7 @@ export class VideoWrapper {
         this.wrapperEl = $1(`#${this.id}`);
         this.teaserEl = $1("#explainer-teaser");
         this.playButton = $1(".play-button");
-        this.buttonLabel = $1("#int-label");
+        this.buttonLabel = $1("#dots__label");
         this.introAreaEl = $1("#intro-area")
 
         this.resetDimensions();
@@ -104,7 +104,7 @@ export class VideoWrapper {
     setStyleTransforms() {
         this.transformProperties.forEach(prop => {
             this.innerEl.style[prop] = `translate(-${this.currentVideo * this.vidWidth}px)`;
-            this.dot.style[prop] = `translate(${this.currentVideo * 108}px)`;
+            this.dot.style[prop] = `translate(${this.currentVideo * 112}px)`;
         })
     }
 
@@ -114,11 +114,12 @@ export class VideoWrapper {
                 video.pause();
             }
         });
-        this.wrapperEl.className = 'paused';
+        this.wrapperEl.setAttribute('paused', '');
     }
 
     playAllVideos() {
         this.started = true;
+        this.wrapperEl.setAttribute('started', '');
 
         this.videos.map( video => {
             if(this.explainerExpanded === true) {
@@ -131,7 +132,7 @@ export class VideoWrapper {
 
         this.introAreaEl.style.opacity = 0;
         this.dots.removeAttribute("style");
-        this.wrapperEl.className = "";
+        this.wrapperEl.removeAttribute('paused');
     }
 
     toggleVideos() {
@@ -153,18 +154,24 @@ export class VideoWrapper {
             this.vidHeight = this.vidWidth / (16/9);
         }
 
+        var contentPaddingSize = (this.vidWidth - this.introAreaEl.clientWidth) / 2;
+
         this.wrapperEl.style.width = this.vidWidth + "px";
         this.wrapperEl.style.height = this.vidHeight + "px";
         this.innerEl.style.width = (this.vidWidth*this.videos.length + 0.1 /*0.1 fixes ff style bug*/) + "px";
         this.teaserEl.style.height = this.vidHeight + "px";
 
-        this.playButton.style.top = (this.vidHeight/2 - 35) + "px";
-        this.playButton.style.left = (this.vidWidth/2 - 35) + "px";
+        if (this.started) {
+            this.playButton.style.top = (this.vidHeight/2 - 35) + "px";
+            this.playButton.style.left = (this.vidWidth/2 - 35) + "px";
+        } else {
+            this.playButton.style.top = `${this.introAreaEl.offsetTop - 10}px`
+            this.playButton.style.left = `${contentPaddingSize}px`;
+        }
 
         if (this.started) this.dots.removeAttribute('style');
         else {
             this.dots.style.top = `${this.introAreaEl.offsetTop + 25}px`;
-            var contentPaddingSize = (this.vidWidth - this.introAreaEl.clientWidth) / 2;
             this.dots.style.right = `${contentPaddingSize + 20}px`;
         }
 
@@ -199,7 +206,7 @@ export class VideoWrapper {
 
     onCanplaythrough() {
         bonzo($1("#loading-overlay")).remove();
-        this.wrapperEl.className = 'paused';
+        this.wrapperEl.setAttribute('paused', '');
         // playing then pausing will enable the videos to
         // continue buffering further before the user hits play
         this.videos.forEach(v => { v.play(); v.pause(); })

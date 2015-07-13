@@ -46,7 +46,7 @@ module.exports = function(grunt) {
 
         shell: {
             interactive: {
-                command: './node_modules/.bin/jspm bundle-sfx <%= visuals.jspmFlags %> src/js/main build/main.js',
+                command: './node_modules/.bin/jspm bundle-sfx <%= visuals.jspmFlags %> --inline-source-maps --amd src/js/main build/main.js',
                 options: {
                     execOptions: {
                         cwd: '.'

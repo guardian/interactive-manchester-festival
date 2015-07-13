@@ -1,10 +1,10 @@
 System.config({
   "baseURL": "/",
+  "defaultJSExtensions": true,
   "transpiler": "traceur",
   "paths": {
-    "*": "*.js",
-    "github:*": "src/js/jspm_packages/github/*.js",
-    "npm:*": "src/js/jspm_packages/npm/*.js"
+    "github:*": "src/js/jspm_packages/github/*",
+    "npm:*": "src/js/jspm_packages/npm/*"
   },
   "bundles": {
     "build/main": [
@@ -15,6 +15,7 @@ System.config({
 
 System.config({
   "map": {
+    "ded/bonzo": "github:ded/bonzo@2.0.0",
     "guardian/iframe-messenger": "github:guardian/iframe-messenger@master",
     "json": "github:systemjs/plugin-json@0.1.0",
     "mustache": "github:janl/mustache.js@2.1.2",

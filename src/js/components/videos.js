@@ -69,7 +69,7 @@ export class VideoWrapper {
 
     initEventBindings() {
 
-        $1("#explainer-teaser").addEventListener('click', e => {
+        this.wrapperEl.addEventListener('click', e => {
             if(this.videos[0].playing === true) this.pauseAllVideos();
             else this.playAllVideos();
         })

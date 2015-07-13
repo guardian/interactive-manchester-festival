@@ -155,7 +155,7 @@ export class VideoWrapper {
 
         this.wrapperEl.style.width = this.vidWidth + "px";
         this.wrapperEl.style.height = this.vidHeight + "px";
-        this.innerEl.style.width = this.vidWidth*this.videos.length + "px";
+        this.innerEl.style.width = (this.vidWidth*this.videos.length + 0.1 /*0.1 fixes ff style bug*/) + "px";
         this.teaserEl.style.height = this.vidHeight + "px";
 
         this.playButton.style.top = (this.vidHeight/2 - 35) + "px";

@@ -1,4 +1,7 @@
-var requestAnimFrame = (function(){return window.requestAnimationFrame||window.webkitRequestAnimationFrame||window.mozRequestAnimationFrame||function(callback){window.setTimeout(callback,1000/60);};})();
+var requestAnimFrame = (function(){return window.requestAnimationFrame||window.webkitRequestAnimationFrame||window.mozRequestAnimationFrame||function(callback){window.setTimeout(callback,1);};})();
+
+export var $ = document.querySelectorAll.bind(document)
+export var $1 = document.querySelector.bind(document)
 
 var easeInOutQuad = function (t, b, c, d) {
     t /= d/2;

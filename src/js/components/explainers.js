@@ -1,7 +1,7 @@
 import mustache from 'mustache'
 import explainerHTML from '../text/explainer.html!text'
 import teaserHTML from '../text/explainer-teaser.html!text'
-import { animScrollTo } from '../components/helperFunctions'
+import { animScrollTo } from '../lib/helpers'
 
 export class ExplainerSet {
 	constructor(el,wrapper,explainerData,id,teaserId,teaserInnerId) {
@@ -14,7 +14,7 @@ export class ExplainerSet {
 
 		this.setUpButton();
 		this.videoWrapper.explainers = this;
-	};	
+	};
 
 	updateCheck() {
 		let self = this;
@@ -22,7 +22,7 @@ export class ExplainerSet {
 			let currentTime = self.videoWrapper.videos[0].el.currentTime;
 			if(currentTime > explainer.starttime && currentTime < explainer.endtime
 				&& ((typeof self.currentExplainer !== 'undefined' && explainer.id !== self.currentExplainer.id) || typeof self.currentExplainer === 'undefined')) {
-				self.switchExplainer(explainer); 
+				self.switchExplainer(explainer);
 			} else if(explainer === self.currentExplainer && currentTime > explainer.endtime) {
 				self.teaserInnerEl.className = "hidden";
 			}
@@ -31,8 +31,8 @@ export class ExplainerSet {
 
 	switchExplainer(nextExplainer) {
 		this.currentExplainer = nextExplainer;
-		this.teaserInnerEl.className = ""; 
-		this.teaserInnerEl.innerHTML = mustache.render(teaserHTML, {explainer: this.currentExplainer}); 
+		this.teaserInnerEl.className = "";
+		this.teaserInnerEl.innerHTML = mustache.render(teaserHTML, {explainer: this.currentExplainer});
 	}
 
 	toggleExplainerVisibility(doNotPlay) {
@@ -49,7 +49,7 @@ export class ExplainerSet {
 			this.teaserEl.className = "show-explainer";
 			this.videoWrapper.explainerExpanded = true;
 
-			this.videoWrapper.playButton.style.opacity = 0; 
+			this.videoWrapper.playButton.style.opacity = 0;
 
 			if(doNotPlay !== true) {
 				this.videoWrapper.pauseAllVideos();
@@ -57,7 +57,7 @@ export class ExplainerSet {
 		}
 	}
 
-	setUpButton() { 
+	setUpButton() {
 		let self = this;
 		document.querySelector("#explainer-teaser--inner").addEventListener("click", function(e) {
 			var event = e || window.event;

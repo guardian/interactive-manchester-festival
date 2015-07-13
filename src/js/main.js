@@ -6,44 +6,34 @@ import { Video, VideoWrapper, playVideos } from './components/videos'
 import { ExplainerSet } from './components/explainers'
 import { TeaserSet } from './components/teasers'
 
-function init(el, context, config, mediator) {
-	reqwest({
-	    url: 'http://interactive.guim.co.uk/spreadsheetdata/1H5ZvNP_oBxOjk-HAnWmHWwRJ1Sig6U1clMeryd8fPeg.json',
-	    type: 'json',
-	    crossOrigin: true,
-	    success: function(resp) {
-	    	app(el,resp);
-	    }
-	});
-	// app(el);
+export function init(el, context, config, mediator) {
+    reqwest({
+        url: 'http://interactive.guim.co.uk/spreadsheetdata/1H5ZvNP_oBxOjk-HAnWmHWwRJ1Sig6U1clMeryd8fPeg.json',
+        type: 'json',
+        crossOrigin: true,
+        success: function(resp) {
+            app(el,resp);
+        }
+    });
+    // app(el);
 }
 
 function app(el,data) {
-	var videos = [
-		new Video("video1","NEWAus2_1_h264_mezzanine"),
-		new Video("video2","NEWAus3_1_h264_mezzanine")
-	];
 
-	var videoWrapper = new VideoWrapper(el, "video-wrapper", data.sheets.meta, videos); 
-	videoWrapper.render();
+    var videoWrapper = new VideoWrapper({
+        el: el,
+        id: "video-wrapper",
+        metaData: data.sheets.meta,
+        videoIds: [/*"150710_FLEX_A_h264_mezzanine", */"NEWAus2_1_h264_mezzanine", "NEWAus3_1_h264_mezzanine"]
+    });
 
-	var explainerSet = new ExplainerSet(el, videoWrapper, data.sheets.explainers, "explainer-area", "explainer-teaser", "explainer-teaser--inner");
-	var teaserSet = new TeaserSet(el, videoWrapper, data.sheets.teasers, "arrow-left--text", "arrow-right--text");
+    var explainerSet = new ExplainerSet(el, videoWrapper, data.sheets.explainers, "explainer-area", "explainer-teaser", "explainer-teaser--inner");
+    var teaserSet = new TeaserSet(el, videoWrapper, data.sheets.teasers, "arrow-left--text", "arrow-right--text");
 
-	document.onkeydown = () => videoWrapper.checkKeyDown();
+    videoWrapper.videos[0].el.ontimeupdate = function() {
+        explainerSet.updateCheck();
+        teaserSet.updateCheck();
+    }
 
-	document.onkeyup = () => videoWrapper.checkKeyUp();
-
-	videoWrapper.videos[0].el.ontimeupdate = function() {
-		explainerSet.updateCheck();
-		teaserSet.updateCheck();
-	}
-
-	videoWrapper.videos[0].el.onended = () => videoWrapper.hasEnded();
-
-	playVideos(videoWrapper);
+    playVideos(videoWrapper);
 }
-
-
-
-(window.define || System.amdDefine)(function() { return {init: init}; });

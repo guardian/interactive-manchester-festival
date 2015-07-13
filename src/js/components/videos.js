@@ -13,8 +13,8 @@ export class Video {
             // webm: "http://multimedia.guardianapis.com/interactivevideos/video.php?file=" + this.multimediaID + "&format=video/webm&maxbitrate=1000"
 
             // *** SHORT TERM HACK AROUND THE PHP REDIRECT SCRIPT ***
-            mp4: "http://cdn.theguardian.tv/interactive/2015/05/13/" + this.multimediaID + "_2M_H264.mp4",
-            webm: "http://cdn.theguardian.tv/interactive/2015/05/13/" + this.multimediaID + "_2M_vp8.webm"
+            mp4: "http://cdn.theguardian.tv/interactive/" + this.multimediaID + "_2M_H264.mp4",
+            webm: "http://cdn.theguardian.tv/interactive/" + this.multimediaID + "_2M_vp8.webm"
         }
 
         this.parent = {
@@ -48,7 +48,7 @@ export class VideoWrapper {
         this.videos = videoIds.map(id => new Video(id));
         this.el.innerHTML = mustache.render(mainHTML, this);
         var videoEls = Array.prototype.slice.call(this.el.querySelectorAll('video'))
-        console.log(videoEls)
+
         videoEls.map((el, i) => this.videos[i].el = el)
 
         this.transformProperties = ['webkitTransform', 'mozTransform', 'msTransform', 'transform']

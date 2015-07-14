@@ -1,6 +1,6 @@
 import mustache from 'mustache'
 import mainHTML from '../text/main.html!text'
-import { $1, debounce } from '../lib/helpers'
+import { $1, debounce, throttle } from '../lib/helpers'
 import bonzo from 'ded/bonzo'
 
 export class Video {
@@ -32,6 +32,10 @@ export class Video {
         this.el.play();
         this.playing = true;
         this.el.className = "";
+    }
+
+    seek(time) {
+        this.el.currentTime = time;
     }
 }
 
@@ -65,6 +69,7 @@ export class VideoWrapper {
 
         this.resetDimensions();
         this.initEventBindings();
+        this.initScrubber();
 
         this.dots.className = 'add-transition'; // adding this here stops transition on load
     };
@@ -86,10 +91,42 @@ export class VideoWrapper {
         document.addEventListener('keyup', this.checkKeyUp.bind(this))
         this.videos[0].el.addEventListener('ended', this.hasEnded.bind(this));
 
+        // user active state
+        var deactivateTimeout;
+        var setActive = e => {
+            this.wrapperEl.setAttribute('active', '');
+            window.clearTimeout(deactivateTimeout);
+            deactivateTimeout = window.setTimeout(_ => this.wrapperEl.removeAttribute('active'), 1000);
+        };
+        document.addEventListener('mousemove', throttle(setActive, 200, {leading: true}))
+    }
+
+    initScrubber() {
+        // progress
         this.videos[0].el.addEventListener('timeupdate', e => {
-            var progress = e.target.currentTime / e.target.duration;
+            var vidEl = e.target;
+            var progress = vidEl.currentTime / vidEl.duration;
             this.scrubberProgressEl.style.width = `${(progress * 100).toFixed(3)}%`;
         });
+
+        // seek behaviour
+        this.scrubberEl.addEventListener('click', e => {
+            e.stopPropagation();
+            var clickPosition = e.offsetX / this.scrubberEl.getBoundingClientRect().width;
+            var seekTime = (this.videos[0].el.duration * clickPosition).toFixed(2);
+
+            // temporarily disable transition for seeking
+            this.scrubberProgressEl.style.transition = 'none';
+            this.scrubberProgressEl.style.width = `${(clickPosition * 100).toFixed(3)}%`;
+            window.setTimeout(_ => this.scrubberProgressEl.style.removeProperty('transition'), 10)
+
+            this.seekVideos(seekTime);
+        });
+    }
+
+
+    seekVideos(time) {
+        this.videos.forEach(vid => vid.seek(time))
     }
 
     nextVideo() {

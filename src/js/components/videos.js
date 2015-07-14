@@ -52,14 +52,16 @@ export class VideoWrapper {
 
         this.transformProperties = ['webkitTransform', 'mozTransform', 'msTransform', 'transform']
 
-        this.dot = $1("#dot");
-        this.dots = $1("#dots");
-        this.innerEl = $1(`.video-wrapper__videos`);
-        this.wrapperEl = $1(`#${this.id}`);
-        this.teaserEl = $1("#explainer-teaser");
-        this.playButton = $1(".play-button");
-        this.buttonLabel = $1("#dots__label");
+        this.dot = $1("#dot")
+        this.dots = $1("#dots")
+        this.innerEl = $1(`.video-wrapper__videos`)
+        this.wrapperEl = $1(`#${this.id}`)
+        this.teaserEl = $1("#explainer-teaser")
+        this.playButton = $1(".play-button")
+        this.buttonLabel = $1("#dots__label")
         this.introAreaEl = $1("#intro-area")
+        this.scrubberEl = $1('.video-wrapper__scrubber')
+        this.scrubberProgressEl = $1('.video-wrapper__scrubber span')
 
         this.resetDimensions();
         this.initEventBindings();
@@ -83,6 +85,11 @@ export class VideoWrapper {
         document.addEventListener('keydown', this.checkKeyDown.bind(this))
         document.addEventListener('keyup', this.checkKeyUp.bind(this))
         this.videos[0].el.addEventListener('ended', this.hasEnded.bind(this));
+
+        this.videos[0].el.addEventListener('timeupdate', e => {
+            var progress = e.target.currentTime / e.target.duration;
+            this.scrubberProgressEl.style.width = `${(progress * 100).toFixed(3)}%`;
+        });
     }
 
     nextVideo() {

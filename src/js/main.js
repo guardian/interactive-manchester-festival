@@ -24,7 +24,7 @@ function app(el,data) {
         el: el,
         id: "video-wrapper",
         metaData: data.sheets.meta,
-        videoIds: ["2015/07/14/150714_04_FLEX_A_long_h264_mezzanine", "2015/07/14/150714_03_FLEX_B_h264_mezzanine"]
+        videoIds: [data.sheets.meta[0].video1, data.sheets.meta[0].video2]
     });
 
     var explainerSet = new ExplainerSet(el, videoWrapper, data.sheets.explainers, "explainer-area", "explainer-teaser", "explainer-teaser--inner");

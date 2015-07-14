@@ -30,9 +30,10 @@ export class ExplainerSet {
 	};
 
 	switchExplainer(nextExplainer) {
+		let self = this;
 		this.currentExplainer = nextExplainer;
 		this.teaserInnerEl.className = "";
-		this.teaserInnerEl.innerHTML = mustache.render(teaserHTML, {explainer: this.currentExplainer});
+		this.teaserInnerEl.innerHTML = mustache.render(teaserHTML, {explainer: this.currentExplainer, tweet: encodeURIComponent(this.currentExplainer.tweet), url: encodeURIComponent(window.location.href)});
 	}
 
 	toggleExplainerVisibility(doNotPlay) {
@@ -61,8 +62,12 @@ export class ExplainerSet {
 		let self = this;
 		document.querySelector("#explainer-teaser--inner").addEventListener("click", function(e) {
 			var event = e || window.event;
+
 			event.stopPropagation();
-			self.toggleExplainerVisibility();
+
+        	if(event.target.tagName.toLowerCase() !== 'a') {
+				self.toggleExplainerVisibility();
+			}
 		});
 	}
 }

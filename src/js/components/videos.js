@@ -48,6 +48,7 @@ export class VideoWrapper {
         this.headerHeight = headerEl ? headerEl.clientHeight : 0;
         this.meta = metaData[0];
         this.videos = videoIds.map(id => new Video(id));
+        this.url = window.location.href;
 
         this.el.innerHTML = mustache.render(mainHTML, this);
 
@@ -77,8 +78,10 @@ export class VideoWrapper {
     initEventBindings() {
 
         this.wrapperEl.addEventListener('click', e => {
-            if(this.videos[0].playing === true) this.pauseAllVideos();
-            else this.playAllVideos();
+        	if(e.target.tagName.toLowerCase() !== 'a') {
+            	if(this.videos[0].playing === true) this.pauseAllVideos();
+            	else this.playAllVideos();
+        	}
         })
 
         $1("#dots").addEventListener("click", e => {

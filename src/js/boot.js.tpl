@@ -17,12 +17,12 @@ define([], function() {
 
             // Load CSS asynchronously
             window.setTimeout(function() {
-                addCSS('<%= assetPath %>/main.css');
+                addCSS('<%= assetPath %>/mobile.css');
             }, 10);
 
             // Load JS and init
-            require(['<%= assetPath %>/main.js'], function(main) {
-                main.init(el, context, config, mediator);
+            require(['<%= assetPath %>/mobile.js'], function(mobile) {
+                mobile.init(el, context, config, mediator);
             }, function(err) { console.error('Error loading boot.', err); });
         }
     };

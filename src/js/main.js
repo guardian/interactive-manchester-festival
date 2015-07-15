@@ -24,7 +24,7 @@ function app(format,el,data) {
         el: el,
         id: "video-wrapper",
         metaData: data.sheets.meta,
-        videoIds: [data.sheets.meta[0].video1, data.sheets.meta[0].video2],
+        videoIds: [data.sheets.meta[0].video],
         format: format
     });
 

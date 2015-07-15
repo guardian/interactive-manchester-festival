@@ -98,7 +98,7 @@ export function testBandwidth(callback, el, data) {
     var fileSizeSmall = 1024*8;
     var checkFileLarge = 'http://cdn.theguardian.tv/interactive/speedtest/testfile.dat';
     var fileSizeLarge = 102400*8;
-    var timeout = 2000;//just give up after 5 seconds
+    var timeout = 4000;//just give up after 5 seconds
 
     var err = null;
 
@@ -120,9 +120,9 @@ export function testBandwidth(callback, el, data) {
         ratekbps = Math.min(ratekbps, 10000);
         ratekbps = Math.max(ratekbps, 100);
 
-        if(ratekbps > 5000) {
+        if(ratekbps > 4000) {
           theFormat = "4M";
-        } else if(ratekbps > 2500) {
+        } else if(ratekbps > 2048) {
           theFormat = "2M";
         } else {
           theFormat = "768k"
@@ -160,7 +160,7 @@ export function testBandwidth(callback, el, data) {
             console.log('running from timeout');
             var temp = callback;
             callback = null;
-            temp("timeout", bandwidth);
+            temp("768k", el, data);
         }
     }, 1000);
 };

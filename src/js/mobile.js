@@ -5,7 +5,7 @@ import mobileHTML from './text/mobile.html!text'
 
 function init(el, context, config, mediator) {
 	reqwest({
-	    url: 'http://interactive.guim.co.uk/spreadsheetdata/1H5ZvNP_oBxOjk-HAnWmHWwRJ1Sig6U1clMeryd8fPeg.json',
+	    url: 'http://interactive.guim.co.uk/spreadsheetdata/1Jpie3XvZBI_dd-jNzz20jJ_R3WBAY9wEzLPE3nN8r0c.json',
 	    type: 'json',
 	    crossOrigin: true,
 	    success: function(resp) {
@@ -22,7 +22,7 @@ function app(el,data) {
 		el: el,
 		template:mobileHTML,
 		explainers:data.sheets.explainers,
-		meta:data.sheets.meta,
+		meta:data.sheets.meta[0],
 		videos:data.sheets.videos
 	});
 
@@ -40,6 +40,7 @@ export class ExplainerMobile {
 		this.explainers = explainers;
 		this.meta = meta;
 		this.videos = videos;
+		console.log(this.meta);
 		el.innerHTML = mustache.render(this.template, {explainers:this.explainers, meta:this.meta, videos:this.videos, height:this.height+"px"});
 		this.explainers.map( explainer => explainer.el = el.querySelector("#explainer-"+explainer.id))
 	};

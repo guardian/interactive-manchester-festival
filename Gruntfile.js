@@ -226,7 +226,7 @@ module.exports = function(grunt) {
     grunt.registerTask('interactive', ['shell:interactive', 'template:bootjs', 'sass:interactive'])
     grunt.registerTask('mobile', ['shell:mobile', 'template:bootjs', 'sass:mobile'])
     grunt.registerTask('default', ['clean', 'harness', 'interactive', 'mobile', 'connect', 'watch']);
-    grunt.registerTask('build', ['clean', 'interactive']);
+    grunt.registerTask('build', ['clean', 'interactive', 'mobile']);
     grunt.registerTask('deploy', ['loadDeployConfig', 'prompt:visuals', 'build', 'copy:deploy', 'aws_s3', 'boot_url']);
 
     grunt.loadNpmTasks('grunt-aws');

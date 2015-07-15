@@ -134,7 +134,7 @@ export class VideoWrapper {
     }
 
     nextVideo() {
-        if(this.currentVideo + 1 < this.videos.length) {
+        if(this.currentVideo < 1) {
             this.currentVideo++;
             this.setStyleTransforms();
             this.buttonLabel.style.opacity = 0;
@@ -193,6 +193,7 @@ export class VideoWrapper {
     }
 
     resetDimensions() {
+    	let self = this;
         this.ratio = window.innerWidth/(window.innerHeight - this.headerHeight);
 
         if(this.ratio > 16/9) {
@@ -205,7 +206,7 @@ export class VideoWrapper {
 
         this.wrapperEl.style.width = this.vidWidth + "px";
         this.wrapperEl.style.height = this.vidHeight + "px";
-        this.innerEl.style.width = (this.vidWidth*this.videos.length + 0.1 /*0.1 fixes ff style bug*/) + "px";
+        this.innerEl.style.width = (this.vidWidth*2*this.videos.length + 0.1 /*0.1 fixes ff style bug*/) + "px";
         this.teaserEl.style.height = this.vidHeight + "px";
 
         var contentPaddingSize = (this.wrapperEl.clientWidth - this.introAreaEl.clientWidth) / 2;
@@ -224,7 +225,9 @@ export class VideoWrapper {
             this.dots.style.right = `${contentPaddingSize + 20}px`;
         }
 
-        this.videos.map(video => video.el.style.width = this.vidWidth + "px");
+        this.videos.map(function(video) {
+        	video.el.style.width = self.vidWidth*2 + "px"; video.el.load();
+        });
     }
 
     hasEnded() {
@@ -266,9 +269,9 @@ export class VideoWrapper {
 export function playVideos(theWrapper) {
     var counter = 0;
 
-    for (var i = 0; i < 2; i++) {
+    for (var i = 0; i < 1; i++) {
         theWrapper.videos[i].el.addEventListener('canplaythrough', _ => {
-            if (++counter === 2) theWrapper.onCanplaythrough();
+            if (++counter === 1) theWrapper.onCanplaythrough();
         })
     }
 }

@@ -78,6 +78,11 @@ figure.element-interactive {
 		}
 	}
 }
+
+#video-wrapper[ended]:hover .play-button {
+	background-image: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/PjxzdmcgaGVpZ2h0PSI0OCIgdmlld0JveD0iMCAwIDQ4IDQ4IiB3aWR0aD0iNDgiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHBhdGggZD0iTTAgMGg0OHY0OEgweiIgZmlsbD0ibm9uZSIvPjxwYXRoIGZpbGw9IiMzMzMiIGQ9Ik0yNCAxMFYyTDE0IDEybDEwIDEwdi04YzYuNjMgMCAxMiA1LjM3IDEyIDEycy01LjM3IDEyLTEyIDEyLTEyLTUuMzctMTItMTJIOGMwIDguODQgNy4xNiAxNiAxNiAxNnMxNi03LjE2IDE2LTE2LTcuMTYtMTYtMTYtMTZ6Ii8+PC9zdmc+);
+}
+
 .video-wrapper__videos {
 	width: 10000px;
 	overflow: hidden;
@@ -165,7 +170,7 @@ figure.element-interactive {
 	#explainer-teaser--inner {
 		position: absolute;
 		color: #fff;
-		bottom: -150px;
+		bottom: -180px;
 		width: 100%;
 		height: 300px;
 		font-family: $egyptian;
@@ -174,8 +179,12 @@ figure.element-interactive {
 		transition: bottom 0.5s ease-in-out, background-color 0.3s ease-in-out;
 
 		width: 500px;
-		right: calc(50% - 35px);
+		right: calc(50% - 25px);
 		left: initial;
+
+		@include mq($until: desktop) {
+			bottom: -200px; 
+		}
 
 		// background: -moz-linear-gradient(top,  rgba(0,0,0,0) 0%, rgba(0,0,0,0.65) 100%); /* FF3.6+ */
 		// background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(0,0,0,0)), color-stop(100%,rgba(0,0,0,0.65))); /* Chrome,Safari4+ */
@@ -288,8 +297,8 @@ figure.element-interactive {
 
 	.explainer-tease {
 		position: absolute;
-		right: 80px;
-		padding-top: 15px;
+		right: 58px;
+		padding-top: 6px;
 		padding-right: 10px;
 		font-family: $egyptian;
 		font-size: 30px;
@@ -377,7 +386,7 @@ button {
 
 .button-explainer {
   	float: right;
-
+  	height: 400px;
 	font-size: 16px;
 	line-height: 24px;
 	max-width: 250px;
@@ -436,10 +445,10 @@ button {
 }
 
 .int-button-up {
-	width: 70px;
+	width: 50px;
 	fill: #fff;
 	display: inline-block;
-	height: 70px;
+	height: 50px;
 	padding: 10px;
 	background-color: rgba(51, 51, 51, 0.8);
 	border-radius: 100px;
@@ -448,9 +457,9 @@ button {
 	float: right;
 
 	svg {
-		width: 44px;
-		height: 44px;
-		margin-top: 4px;
+		width: 32px;
+		height: 32px;
+		margin-left: -1px;
 		transition: transform 0.3s ease-in-out;
 
 		.show-explainer & {
@@ -463,7 +472,7 @@ button {
 	color: #fff;
 	font-family: $text-sans;
 	font-size: 14px;
-	max-width: 480px;
+	max-width: 440px;
 	line-height: 16px;
 	padding: 12px 0;
 }
@@ -525,6 +534,19 @@ button {
 
 	#video-wrapper[paused] & {
 		display: block;
+	}
+
+	#video-wrapper[ended] & {
+		background-image: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/PjxzdmcgaGVpZ2h0PSI0OCIgdmlld0JveD0iMCAwIDQ4IDQ4IiB3aWR0aD0iNDgiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHBhdGggZD0iTTAgMGg0OHY0OEgweiIgZmlsbD0ibm9uZSIvPjxwYXRoIGZpbGw9IiNmZmYiIGQ9Ik0yNCAxMFYyTDE0IDEybDEwIDEwdi04YzYuNjMgMCAxMiA1LjM3IDEyIDEycy01LjM3IDEyLTEyIDEyLTEyLTUuMzctMTItMTJIOGMwIDguODQgNy4xNiAxNiAxNiAxNnMxNi03LjE2IDE2LTE2LTcuMTYtMTYtMTYtMTZ6Ii8+PC9zdmc+);
+		background-size: 70%;
+		background-position: center center;
+		background-repeat: no-repeat;
+
+		span {
+			&::after {
+				content: initial;
+			}
+		}
 	}
 
 	span {

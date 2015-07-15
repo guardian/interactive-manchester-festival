@@ -469,12 +469,22 @@ button {
 }
 
 .the-credits {
-	color: #fff;
-	font-family: $text-sans;
-	font-size: 14px;
+	color: rgba(255,255,255,0.8);
+	font-family: $text-egyptian;
+	font-size: 16px;
 	max-width: 440px;
-	line-height: 16px;
+	line-height: 22px;
 	padding: 12px 0;
+	text-decoration: none;
+
+	a {
+		color: $c-highlight;
+		text-decoration: none;
+
+		&:hover {
+			text-decoration: underline;
+		}
+	}
 }
 
 #intro-area {
@@ -667,9 +677,15 @@ button {
 	margin-top: 70px;
 
 	h1 {
-		font-size: 28px !important;
-		color: $c-highlight !important;
+		font-size: 24px !important;
 		opacity: 1 !important;
+		font-family: $egyptian;
+	}
+
+	p {
+		opacity: 1 !important;
+		max-width: 620px !important;
+		font-family: $text-sans;
 	}
 
 	ul {

@@ -34,14 +34,14 @@ function app(el,data) {
 
 export class ExplainerMobile {
 	constructor({el,template,explainers,meta,videos}) {
-		this.height = (window.innerHeight*1.6 - document.getElementById("maincontent").offsetTop);
+		this.height = (window.innerHeight*1.8 - document.getElementById("maincontent").offsetTop);
 		this.template = template;
 		this.el = el;
 		this.explainers = explainers;
 		this.meta = meta;
 		this.videos = videos;
 		console.log(this.meta);
-		el.innerHTML = mustache.render(this.template, {explainers:this.explainers, meta:this.meta, videos:this.videos, height:this.height+"px"});
+		el.innerHTML = mustache.render(this.template, {explainers:this.explainers, meta:this.meta, url: this.meta.shorturl, tweet: encodeURIComponent(this.meta.tweet), videos:this.videos, height:this.height+"px"});
 		this.explainers.map( explainer => explainer.el = el.querySelector("#explainer-"+explainer.id))
 	};
 
@@ -55,9 +55,11 @@ export class ExplainerMobile {
 			var top = (explainer.el.getBoundingClientRect().top);
 			return top>-this.height/10 && top<this.height/2;
 		});
-		this.switchExplainer(step.gif);
-		this.fadeExplainer(fade);
-		this.fixie();
+		if(typeof step !== "undefined") {
+			this.switchExplainer(step.gif);
+			this.fadeExplainer(fade);
+			this.fixie();
+		}
 	};
 
 	fixie() {

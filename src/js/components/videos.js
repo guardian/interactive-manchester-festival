@@ -48,8 +48,9 @@ export class VideoWrapper {
         var headerEl = $1("#header");
         this.headerHeight = headerEl ? headerEl.clientHeight : 0;
         this.meta = metaData[0];
+        this.url = this.meta.shorturl;
+        this.mainTweet = encodeURIComponent(this.meta.tweet);
         this.videos = videoIds.map(id => new Video(id, format));
-        this.url = window.location.href;
 
         this.el.innerHTML = mustache.render(mainHTML, this);
 
@@ -260,9 +261,9 @@ export class VideoWrapper {
     onCanplaythrough() {
         bonzo($1("#loading-overlay")).remove();
         this.wrapperEl.setAttribute('paused', '');
-        // playing then pausing will enable the videos to
-        // continue buffering further before the user hits play
-        this.videos.forEach(v => { v.play(); v.pause(); })
+        // // playing then pausing will enable the videos to
+        // // continue buffering further before the user hits play
+        // this.videos.forEach(v => { v.play(); v.pause(); })
     }
 }
 

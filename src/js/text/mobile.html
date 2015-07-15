@@ -4,9 +4,13 @@
 			<h1 id="int-title">{{headline}}</h1>
 			<p>{{subheading}}</p>
 		{{/meta}}
+		<div class="share-buttons" id="int-share-buttons">
+			<a href="https://twitter.com/intent/tweet?text={{tweet}}&url={{url}}/stw" target="_blank" class="share-button share-button--twitter"></a>
+			<a href="https://www.facebook.com/sharer/sharer.php?u={{url}}/sfb" target="_blank" class="share-button share-button--facebook"></a>
+		</div>
 	</div>
 	<div id="main-video">
-	<video width="100%">
+	<video width="100%" controls poster="http://cdn.theguardian.tv/interactive/2015/07/14/150714_01_FLEX_MOBILE_h264_mezzanine_2M_H264_poster.jpg">
 		<source src="http://cdn.theguardian.tv/interactive/{{meta.mobilevideo}}_2M_H264.mp4" type="video/mp4">
 		<source src="http://cdn.theguardian.tv/interactive/{{meta.mobilevideo}}_2M_vp8.mp4" type="video/webm">
 	</video>

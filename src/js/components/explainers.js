@@ -33,7 +33,7 @@ export class ExplainerSet {
 		let self = this;
 		this.currentExplainer = nextExplainer;
 		this.teaserInnerEl.className = "";
-		this.teaserInnerEl.innerHTML = mustache.render(teaserHTML, {explainer: this.currentExplainer, tweet: encodeURIComponent(this.currentExplainer.tweet), url: encodeURIComponent(window.location.href)});
+		this.teaserInnerEl.innerHTML = mustache.render(teaserHTML, {explainer: this.currentExplainer, tweet: encodeURIComponent(this.currentExplainer.tweet), url: encodeURIComponent(this.videoWrapper.url)});
 	}
 
 	toggleExplainerVisibility(doNotPlay) {

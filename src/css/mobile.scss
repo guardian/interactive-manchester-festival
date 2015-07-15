@@ -1,0 +1,161 @@
+@import "fonts";
+@import "mq";
+@import "general";
+
+$gs-gutter: 20px;
+$gs-baseline: 12px;
+
+$c-highlight: #ffce4b;
+$c-background: #000;
+$c-foreground: #000;
+
+$egyptian: "Guardian Egyptian Web","Egyptian Display",Georgia, serif;
+$text-egyptian: "Guardian Text Egyptian Web","Egyptian Text",Georgia,serif;
+$sans: "Guardian Text Sans Web", "Guardian Agate Sans 1 Web",sans-serif;
+$text-sans: "Guardian Text Sans Web", "Guardian Agate Sans 1 Web",sans-serif;
+
+
+.top-banner-ad-container {
+	display: none !important;
+}
+
+body, html {
+	margin: 0;
+	padding: 0;
+	background-color: $c-foreground;
+}
+
+figure.element-interactive {
+	margin: 0;
+	padding: 0;
+
+	* {
+		box-sizing: border-box;
+	}
+}
+
+.is-immersive .l-footer {
+  display: block !important;
+}
+
+.int-mobile {
+	margin: auto;
+	width: 100%;
+	position: relative;
+}
+
+#header {
+	z-index:10;
+}
+
+#explainers {
+	width: 100%;
+	color: #fff;
+	padding: 24px 20px;
+	position:relative;
+
+	* {
+		max-width: 600px;
+	}
+
+	h2 {
+		@include fs-header(3);
+		margin-top: 0;
+		margin-bottom: 12px;
+	}
+
+	h3 {
+		@include fs-header(3);
+		font-weight: 400;
+		margin-top: 0;
+		margin-bottom: 0;
+		color:#e0e0e0;
+	}
+
+	p {
+		@include fs-bodyCopy(2);
+		margin-top: 6px;
+		max-width: 600px;
+	}
+
+	button {
+		margin-top: 24px;
+	}
+}
+
+.explainer {
+	position:relative;
+	z-index:2;
+}
+
+#explainer-dancer {
+	width:100%;
+	height:100%;
+	position:absolute;
+	top:0;
+	left:0;
+	background-size:contain;
+	background-repeat:no-repeat;
+	z-index:1;
+	opacity:0;
+	transition: opacity .3s;
+}
+
+#intro-area {
+	width: 100%;
+	color: #fff;
+	padding: 24px 20px;
+	position:relative;
+	z-index:3;
+
+	* {
+		max-width: 600px;
+	}
+
+
+	h1 {
+		display: block;
+		@include fs-headline(7);
+		margin-bottom:12px;
+		opacity: 1;
+		color: $c-highlight;
+		font-weight: 100; 
+	}
+
+	p {
+		color: #fff;
+		@include fs-bodyCopy(2);
+	}
+
+}
+
+
+#main-video {
+	position:relative;
+	width: 100%;
+	z-index:4;
+
+}
+
+.credits {
+	width: 100%;
+	padding: 24px 20px;
+	position:relative;
+	z-index:10;
+
+	p {
+
+		color: #fff;
+		@include fs-bodyCopy(2);
+
+		a {
+			color:$c-highlight;
+			text-decoration: none!important;
+		}
+		a:hover {
+			color:#e0e0e0;
+			text-decoration: none!important;
+			border-bottom:1px dotted #e0e0e0!important;
+		}
+	}
+}

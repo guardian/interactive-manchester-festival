@@ -4,17 +4,18 @@ import { $1, debounce, throttle } from '../lib/helpers'
 import bonzo from 'ded/bonzo'
 
 export class Video {
-    constructor(multimediaID) {
+    constructor(multimediaID, format) {
         this.playing = false;
         this.multimediaID = multimediaID;
+        this.format = format;
 
         this.sources = {
             // mp4: "http://multimedia.guardianapis.com/interactivevideos/video.php?file=" + this.multimediaID + "&format=video/mp4&maxbitrate=1000",
             // webm: "http://multimedia.guardianapis.com/interactivevideos/video.php?file=" + this.multimediaID + "&format=video/webm&maxbitrate=1000"
 
             // *** SHORT TERM HACK AROUND THE PHP REDIRECT SCRIPT ***
-            mp4: "http://cdn.theguardian.tv/interactive/" + this.multimediaID + "_2M_H264.mp4",
-            webm: "http://cdn.theguardian.tv/interactive/" + this.multimediaID + "_2M_vp8.webm"
+            mp4: "http://cdn.theguardian.tv/interactive/" + this.multimediaID + "_" + this.format + "_H264.mp4",
+            webm: "http://cdn.theguardian.tv/interactive/" + this.multimediaID + "_" + this.format + "_vp8.webm"
         }
 
         this.parent = {
@@ -40,14 +41,14 @@ export class Video {
 }
 
 export class VideoWrapper {
-    constructor({el, id, metaData, videoIds}) {
+    constructor({el, id, metaData, videoIds, format}) {
         this.el = el;
         this.id = id;
         this.currentVideo = 0;
         var headerEl = $1("#header");
         this.headerHeight = headerEl ? headerEl.clientHeight : 0;
         this.meta = metaData[0];
-        this.videos = videoIds.map(id => new Video(id));
+        this.videos = videoIds.map(id => new Video(id, format));
         this.url = window.location.href;
 
         this.el.innerHTML = mustache.render(mainHTML, this);
@@ -180,6 +181,7 @@ export class VideoWrapper {
         this.introAreaEl.style.opacity = 0;
         this.dots.removeAttribute("style");
         this.wrapperEl.removeAttribute('paused');
+        this.wrapperEl.removeAttribute('ended');
     }
 
     toggleVideos() {
@@ -201,12 +203,12 @@ export class VideoWrapper {
             this.vidHeight = this.vidWidth / (16/9);
         }
 
-        var contentPaddingSize = (this.vidWidth - this.introAreaEl.clientWidth) / 2;
-
         this.wrapperEl.style.width = this.vidWidth + "px";
         this.wrapperEl.style.height = this.vidHeight + "px";
         this.innerEl.style.width = (this.vidWidth*this.videos.length + 0.1 /*0.1 fixes ff style bug*/) + "px";
         this.teaserEl.style.height = this.vidHeight + "px";
+
+        var contentPaddingSize = (this.wrapperEl.clientWidth - this.introAreaEl.clientWidth) / 2;
 
         if (this.started) {
             this.playButton.style.top = (this.vidHeight/2 - 35) + "px";
@@ -227,6 +229,7 @@ export class VideoWrapper {
 
     hasEnded() {
         this.pauseAllVideos();
+        this.wrapperEl.setAttribute('ended', '');
     }
 
     checkKeyDown(e) {

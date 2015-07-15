@@ -11,11 +11,11 @@ module.exports = function(grunt) {
         watch: {
             js: {
                 files: ['src/js/**/*'],
-                tasks: ['shell:interactive'],
+                tasks: ['shell:interactive','shell:mobile'],
             },
             css: {
                 files: ['src/css/**/*'],
-                tasks: ['sass:interactive'],
+                tasks: ['sass:interactive','sass:mobile'],
             },
             harness: {
                 files: ['harness/**/*'],
@@ -33,8 +33,12 @@ module.exports = function(grunt) {
             },
             interactive: {
                 files: {
-                    'build/main.css': 'src/css/main.scss',
-                    'build/snap.css': 'src/css/snap.scss'
+                    'build/main.css': 'src/css/main.scss'
+                }
+            },
+            mobile: {
+                files: {
+                    'build/mobile.css': 'src/css/mobile.scss'
                 }
             },
             harness: {
@@ -47,6 +51,14 @@ module.exports = function(grunt) {
         shell: {
             interactive: {
                 command: './node_modules/.bin/jspm bundle-sfx <%= visuals.jspmFlags %> --inline-source-maps --amd src/js/main build/main.js',
+                options: {
+                    execOptions: {
+                        cwd: '.'
+                    }
+                }
+            },
+            mobile: {
+                command: './node_modules/.bin/jspm bundle-sfx <%= visuals.jspmFlags %> src/js/mobile build/mobile.js',
                 options: {
                     execOptions: {
                         cwd: '.'
@@ -89,7 +101,7 @@ module.exports = function(grunt) {
                     },
                     { // ASSETS
                         expand: true, cwd: 'build/',
-                        src: ['main.js', 'main.css', 'main.js.map', 'main.css.map'],
+                        src: ['main.js', 'main.css', 'main.js.map', 'main.css.map', 'mobile.js', 'mobile.css'], 
                         dest: 'deploy/<%= visuals.timestamp %>/<%= visuals.timestamp %>'
                     }
                 ]
@@ -212,7 +224,8 @@ module.exports = function(grunt) {
 
     grunt.registerTask('harness', ['copy:harness', 'template:harness', 'sass:harness', 'symlink:fonts'])
     grunt.registerTask('interactive', ['shell:interactive', 'template:bootjs', 'sass:interactive'])
-    grunt.registerTask('default', ['clean', 'harness', 'interactive', 'connect', 'watch']);
+    grunt.registerTask('mobile', ['shell:mobile', 'template:bootjs', 'sass:mobile'])
+    grunt.registerTask('default', ['clean', 'harness', 'interactive', 'mobile', 'connect', 'watch']);
     grunt.registerTask('build', ['clean', 'interactive']);
     grunt.registerTask('deploy', ['loadDeployConfig', 'prompt:visuals', 'build', 'copy:deploy', 'aws_s3', 'boot_url']);
 

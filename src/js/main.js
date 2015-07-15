@@ -5,6 +5,7 @@ import { Video, VideoWrapper, playVideos } from './components/videos'
 
 import { ExplainerSet } from './components/explainers'
 import { TeaserSet } from './components/teasers'
+import { testBandwidth } from './lib/helpers'
 
 export function init(el, context, config, mediator) {
     reqwest({
@@ -12,19 +13,19 @@ export function init(el, context, config, mediator) {
         type: 'json',
         crossOrigin: true,
         success: function(resp) {
-            app(el,resp);
+            testBandwidth(app, el, resp);
         }
     });
     // app(el);
 }
 
-function app(el,data) {
-
+function app(format,el,data) {
     var videoWrapper = new VideoWrapper({
         el: el,
         id: "video-wrapper",
         metaData: data.sheets.meta,
-        videoIds: [data.sheets.meta[0].video1, data.sheets.meta[0].video2]
+        videoIds: [data.sheets.meta[0].video1, data.sheets.meta[0].video2],
+        format: format
     });
 
     var explainerSet = new ExplainerSet(el, videoWrapper, data.sheets.explainers, "explainer-area", "explainer-teaser", "explainer-teaser--inner");

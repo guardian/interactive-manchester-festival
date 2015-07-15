@@ -15,15 +15,23 @@ define([], function() {
             // Loading message while we fetch JS / CSS
             el.innerHTML = '<div style="font-size: 24px; text-align: center; padding: 72px 0; font-family: \'Guardian Egyptian Web\',Georgia,serif;">Loading…</div>';
 
-            // Load CSS asynchronously
-            window.setTimeout(function() {
-                addCSS('<%= assetPath %>/main.css');
-            }, 10);
+            if(window.innerWidth > 1024) {
+                window.setTimeout(function() {
+                    addCSS('<%= assetPath %>/main.css');
+                }, 10);
 
-            // Load JS and init
-            require(['<%= assetPath %>/main.js'], function(main) {
-                main.init(el, context, config, mediator);
-            }, function(err) { console.error('Error loading boot.', err); });
+                require(['<%= assetPath %>/main.js'], function(main) {
+                    main.init(el, context, config, mediator);
+                }, function(err) { console.error('Error loading boot.', err); });
+            } else {
+                window.setTimeout(function() {
+                    addCSS('<%= assetPath %>/mobile.css');
+                }, 10);
+
+                require(['<%= assetPath %>/mobile.js'], function(mobile) {
+                    mobile.init(el, context, config, mediator);
+                }, function(err) { console.error('Error loading boot.', err); });
+            }
         }
     };
 });

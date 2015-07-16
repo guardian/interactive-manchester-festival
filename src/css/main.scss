@@ -684,8 +684,9 @@ button {
 
 	p {
 		opacity: 1 !important;
-		max-width: 620px !important;
+		max-width: 440px !important;
 		font-family: $text-sans;
+		margin-top: 0 !important;
 	}
 
 	ul {
@@ -701,6 +702,10 @@ button {
 			font: inherit;
 			vertical-align: baseline; 
 		}
+	}
+
+	.share-buttons {
+		opacity: 1 !important;
 	}
 
 	@include mq(tablet) {

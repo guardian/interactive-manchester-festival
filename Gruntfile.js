@@ -50,7 +50,7 @@ module.exports = function(grunt) {
 
         shell: {
             interactive: {
-                command: './node_modules/.bin/jspm bundle-sfx <%= visuals.jspmFlags %> --inline-source-maps --amd src/js/main build/main.js',
+                command: './node_modules/.bin/jspm bundle-sfx <%= visuals.jspmFlags %> --amd src/js/main build/main.js',
                 options: {
                     execOptions: {
                         cwd: '.'
@@ -101,7 +101,7 @@ module.exports = function(grunt) {
                     },
                     { // ASSETS
                         expand: true, cwd: 'build/',
-                        src: ['main.js', 'main.css', 'main.js.map', 'main.css.map', 'mobile.js', 'mobile.css'], 
+                        src: ['main.js', 'main.css', 'main.js.map', 'main.css.map', 'mobile.js', 'mobile.css'],
                         dest: 'deploy/<%= visuals.timestamp %>/<%= visuals.timestamp %>'
                     }
                 ]
